@@ -1,6 +1,4 @@
 # VS-Maquina-Virtual
-
-# Creación de máquina virtual
 - - -
 ## Introducción
 Con el fin de crear nuestra propia máquina virtual, hemos usado Python y algunas librerías. Además, nos basaremos en la estructura de la pila para poder realizar el programa. Nuestro programa estará basado en la *Fashion Show de Victoria’s Secret 2024*. Durante la ejecución, se vestirá a una modelo con diferentes accesorios, como el peinado, las alas y los zapatos. Cabe añadir que los accesorios que se pueden elegir para vestir a las modelos, estarán almacenados en una memoria. Asimismo, se tendrán una serie de modelos preestablecidas que vestirán diferentes accesorios. En el caso de que la modelo que se cree ya se encuentre almacenada en memoria, se mostrará un video suyo durante el desfile. 
