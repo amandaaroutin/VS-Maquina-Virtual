@@ -73,7 +73,7 @@ class StackVM():
     
     def __init__(self):
 
-        # Inicializar pila "vestir".
+        # Inicializar pilas específicas.
         self.vestir = Pila("vestir")  # Pila para construir el outfit de la modelo.
 
         # Listas de elementos permitidos para cada categoría. 
@@ -149,10 +149,19 @@ class StackVM():
 
         # Cambiar el último par de alas por otro.
         elif partes[0] == "CAMBIAR_ALAS":
-            self.vestir.pop()  # Remueve las alas actuales.
-            tipo_alas = obtener_tipo(partes[1])
-            self.vestir.push(partes[1], tipo_alas)  # Añade las nuevas alas.
-            print(f"La modelo decide cambiar el color de sus alas por: {partes[1]}.")
+            nuevo_color_alas = partes[1]  # Color de alas a cambiar.
+            encontrado = False  # Bandera para indicar si se encontraron las alas.
+
+            # Iterar sobre la pila para encontrar las alas y cambiarlas.
+            for i in range(len(self.vestir.items)):
+                if self.vestir.items[i] in self.alas_permitidos:  # Verificar si es un par de alas o es otro elemento.
+                    self.vestir.items[i] = nuevo_color_alas  # Reemplazar por el nuevo color.
+                    encontrado = True
+                    print(f"Las alas han sido cambiadas por: {nuevo_color_alas}.")
+                    break  # Una vez que encontramos las alas y las cambiamos.
+
+            if not encontrado:
+                print("No se encontraron alas en el outfit para cambiar.")  # Mensaje si no hay alas.
 
         # Mostrar el último elemento en la pila sin removerlo (peek). 
         elif partes[0] == "PEEK":
@@ -243,7 +252,7 @@ class StackVM():
 
                 # Mostrar el video de la modelo que coincida. 
                 if os.path.exists(self.videos_modelos[modelo]):
-                    # print("El archivo existe y se puede acceder.")
+                    print("El archivo existe y se puede acceder.")
                     if platform.system() == "Darwin":  # macOS
                         os.system(f"open '{self.videos_modelos[modelo]}'")
                 else:
@@ -284,6 +293,10 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python VM.py <filename.extension>")
         sys.exit(1)
+
+    filename = sys.argv[1]
+    # Ejecutar la VM con el archivo dado. 
+    StackVM().execute(filename)
 
     filename = sys.argv[1]
     # Ejecutar la VM con el archivo dado. 
